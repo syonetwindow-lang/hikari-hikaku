@@ -576,9 +576,10 @@
 
 <script>
 // ─────────────────────────────────────────────
-//  データ定義
+//  データ定義（data.json から動的ロード、失敗時はここのフォールバックを使用）
 // ─────────────────────────────────────────────
-const PROVIDERS = [
+let PROVIDERS = [];
+const PROVIDERS_FALLBACK = [
   {
     id: 'nuro',
     name: 'NURO光',
@@ -736,6 +737,24 @@ const PROVIDERS = [
   },
 ];
 
+// data.json をロードしてPROVIDERSを更新する
+async function loadProviderData() {
+  try {
+    const resp = await fetch('./data.json');
+    if (!resp.ok) throw new Error('fetch failed');
+    const d = await resp.json();
+    PROVIDERS = d.providers;
+    if (d.lastUpdated) {
+      const el = document.getElementById('last-updated');
+      if (el) el.textContent = `データ更新日: ${d.lastUpdated}`;
+    }
+  } catch {
+    PROVIDERS = PROVIDERS_FALLBACK;
+  }
+}
+// 初期ロード
+loadProviderData();
+
 const RANK_EMOJI = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣'];
 
 // ─────────────────────────────────────────────
@@ -763,7 +782,8 @@ updateBudgetBar(rng.value);
 // ─────────────────────────────────────────────
 //  Compare
 // ─────────────────────────────────────────────
-function doCompare() {
+async function doCompare() {
+  await loadProviderData(); // 最新 data.json を取得
   const pref   = document.getElementById('sel-pref').value;
   const house  = document.getElementById('sel-house').value;
   const budget = parseInt(rng.value);
@@ -938,7 +958,8 @@ function render() {
 <footer style="background:var(--primary);color:#fff;text-align:center;padding:28px 20px;font-size:.82rem;line-height:1.8;margin-top:16px">
   <p style="font-weight:700;font-size:.95rem;margin-bottom:8px">ネットの窓口</p>
   <p>光回線・インターネット回線の比較情報サイト</p>
-  <p style="opacity:.6;margin-top:10px;font-size:.75rem">
+  <p id="last-updated" style="opacity:.7;margin-top:6px;font-size:.78rem"></p>
+  <p style="opacity:.6;margin-top:6px;font-size:.75rem">
     © 2026 ネットの窓口 ／ 掲載情報は参考値です。最新情報は各社公式サイトをご確認ください。
   </p>
 </footer>
