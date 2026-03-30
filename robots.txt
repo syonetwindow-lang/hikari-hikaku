@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://syo-net.github.io/hikari-hikaku/sitemap.xml
+Sitemap: https://syonetwindow-lang.github.io/hikari-hikaku/sitemap.xml
