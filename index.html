@@ -80,6 +80,21 @@
       padding: 20px 20px 18px;
       text-align: center;
     }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .header-mascot {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      border: 3px solid var(--yellow);
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .header-text { text-align: left; }
     .tool-header .site-name {
       font-size: .8rem;
       font-weight: 700;
@@ -516,8 +531,13 @@
 <body>
 
 <div class="tool-header">
-  <h1>光回線 比較ツール</h1>
-  <p>エリア・予算・用途から、あなたに合った光回線を見つけよう</p>
+  <div class="header-inner">
+    <img src="syo.png" alt="しょうのキャラクター" class="header-mascot">
+    <div class="header-text">
+      <h1>光回線 比較ツール</h1>
+      <p>エリア・予算・用途から、あなたに合った光回線を見つけよう</p>
+    </div>
+  </div>
 </div>
 
 <div class="filter-wrap">
