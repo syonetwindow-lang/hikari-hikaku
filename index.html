@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="ja" prefix="og: https://ogp.me/ns#">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>光回線 比較ツール【2026年最新】エリア・予算・用途で選ぶ | ネットの窓口</title>
+
+  <!-- SEO -->
+  <meta name="description" content="光回線をエリア（都道府県）・月額予算・用途（テレワーク・ゲーム・動画）で絞り込んで比較できる無料ツール。NURO光・ドコモ光・auひかり・SoftBank光など8社を一覧比較。おすすめ順・月額順・速度順で並び替えも可能。">
+  <meta name="keywords" content="光回線,比較,おすすめ,NURO光,ドコモ光,auひかり,SoftBank光,楽天ひかり,月額,速度,エリア">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://syo-net.github.io/hikari-hikaku/">
+
+  <!-- OGP（SNSシェア用） -->
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="光回線 比較ツール【2026年最新】| ネットの窓口">
+  <meta property="og:description" content="エリア・予算・用途で光回線を無料比較。8社を一覧比較できます。">
+  <meta property="og:url"         content="https://syo-net.github.io/hikari-hikaku/">
+  <meta property="og:site_name"   content="ネットの窓口">
+  <meta property="og:locale"      content="ja_JP">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:title"       content="光回線 比較ツール【2026年最新】| ネットの窓口">
+  <meta name="twitter:description" content="エリア・予算・用途で光回線を無料比較。8社を一覧比較できます。">
+
+  <!-- 構造化データ（JSON-LD） -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "光回線 比較ツール",
+    "url": "https://syo-net.github.io/hikari-hikaku/",
+    "description": "光回線をエリア・月額予算・用途で絞り込んで比較できる無料ツール",
+    "applicationCategory": "UtilitiesApplication",
+    "inLanguage": "ja",
+    "publisher": {
+      "@type": "Organization",
+      "name": "ネットの窓口"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "JPY"
+    }
+  }
+  </script>
+  <style>
+    :root {
+      --primary:   #0A2342;
+      --accent:    #1A6FDB;
+      --bg:        #F4F7FB;
+      --card-bg:   #FFFFFF;
+      --border:    #DDE3EE;
+      --text:      #1A1A2E;
+      --muted:     #6B7A99;
+      --success:   #16A34A;
+      --radius:    12px;
+      --shadow:    0 2px 12px rgba(10,35,66,.10);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .tool-header {
+      background: var(--primary);
+      color: #fff;
+      padding: 28px 20px 24px;
+      text-align: center;
+    }
+    .tool-header h1 { font-size: 1.55rem; font-weight: 700; letter-spacing: .03em; }
+    .tool-header p  { margin-top: 6px; font-size: .9rem; opacity: .8; }
+
+    /* ── Filter card ── */
+    .filter-wrap {
+      max-width: 760px;
+      margin: -16px auto 0;
+      padding: 0 16px;
+    }
+    .filter-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px 24px 20px;
+    }
+
+    .filter-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .filter-group { display: flex; flex-direction: column; gap: 6px; }
+    .filter-group.full { grid-column: 1 / -1; }
+    .filter-group label {
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    .filter-group label span.step {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 50%;
+      width: 18px; height: 18px;
+      line-height: 18px;
+      text-align: center;
+      font-size: .7rem;
+      margin-right: 5px;
+    }
+    select, input[type=range] {
+      width: 100%;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: .92rem;
+      color: var(--text);
+      background: #fff;
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+      transition: border-color .2s;
+    }
+    select:focus { outline: none; border-color: var(--accent); }
+
+    .usage-checks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .usage-check {
+      display: none;
+    }
+    .usage-check + label {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 7px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      font-size: .85rem;
+      cursor: pointer;
+      transition: all .2s;
+      user-select: none;
+      background: #fff;
+    }
+    .usage-check:checked + label {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .budget-display {
+      font-size: .88rem;
+      color: var(--accent);
+      font-weight: 700;
+      margin-top: 4px;
+    }
+    input[type=range] {
+      padding: 0;
+      height: 6px;
+      border-radius: 3px;
+      background: linear-gradient(to right, var(--accent) 0%, var(--accent) 50%, var(--border) 50%);
+      border: none;
+      cursor: pointer;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid #fff;
+      box-shadow: 0 1px 4px rgba(0,0,0,.2);
+      cursor: pointer;
+    }
+
+    .btn-compare {
+      display: block;
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: .04em;
+      transition: background .2s, transform .1s;
+    }
+    .btn-compare:hover  { background: #1560c4; }
+    .btn-compare:active { transform: scale(.99); }
+
+    /* ── Results ── */
+    .results-wrap {
+      max-width: 760px;
+      margin: 24px auto 40px;
+      padding: 0 16px;
+    }
+    .results-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .results-count {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .results-count strong { color: var(--accent); font-size: 1.1rem; }
+
+    .sort-row {
+      display: flex;
+      gap: 6px;
+    }
+    .sort-btn {
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1.5px solid var(--border);
+      background: #fff;
+      font-size: .78rem;
+      cursor: pointer;
+      color: var(--muted);
+      transition: all .2s;
+    }
+    .sort-btn.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* ── Provider Card ── */
+    .provider-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border-left: 5px solid var(--provider-color, #ccc);
+      margin-bottom: 14px;
+      overflow: hidden;
+      transition: box-shadow .2s;
+    }
+    .provider-card:hover { box-shadow: 0 4px 20px rgba(10,35,66,.16); }
+
+    .card-main {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 18px 20px 14px;
+    }
+    .card-rank {
+      font-size: 1.5rem;
+      line-height: 1;
+      width: 32px;
+      text-align: center;
+    }
+    .card-info { flex: 1; }
+    .card-name-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+    .card-name {
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .card-tag {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 4px;
+      font-size: .72rem;
+      font-weight: 700;
+      color: #fff;
+      background: var(--provider-color, #888);
+    }
+    .card-specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: .85rem;
+      color: var(--muted);
+    }
+    .card-specs span strong {
+      color: var(--text);
+      font-size: .95rem;
+    }
+    .card-price-col {
+      text-align: right;
+      min-width: 90px;
+    }
+    .card-price {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.1;
+    }
+    .card-price small {
+      font-size: .65rem;
+      font-weight: 400;
+      color: var(--muted);
+    }
+
+    .card-footer {
+      border-top: 1px solid var(--border);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .card-features {
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .feature-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: #F0F4FF;
+      color: var(--accent);
+      border-radius: 4px;
+      padding: 3px 8px;
+      font-size: .75rem;
+    }
+    .feature-chip::before { content: '✓'; font-weight: 700; }
+
+    .btn-detail {
+      display: inline-block;
+      padding: 8px 18px;
+      border-radius: 6px;
+      background: var(--provider-color, var(--accent));
+      color: #fff;
+      font-size: .82rem;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: opacity .2s;
+    }
+    .btn-detail:hover { opacity: .85; }
+
+    /* ── Score bar ── */
+    .score-row {
+      padding: 0 20px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .score-label { font-size: .72rem; color: var(--muted); width: 60px; flex-shrink: 0; }
+    .score-bar-bg {
+      flex: 1;
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .score-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: var(--provider-color, var(--accent));
+      transition: width .6s ease;
+    }
+    .score-val { font-size: .72rem; color: var(--muted); width: 28px; text-align: right; }
+
+    /* ── Area notice ── */
+    .area-notice {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #FFF8E1;
+      border: 1px solid #F6C90E;
+      color: #856404;
+      border-radius: 4px;
+      padding: 3px 10px;
+      font-size: .75rem;
+    }
+
+    /* ── Empty state ── */
+    .empty-state {
+      text-align: center;
+      padding: 48px 20px;
+      color: var(--muted);
+    }
+    .empty-state .icon { font-size: 2.5rem; margin-bottom: 10px; }
+
+    /* ── Compare table ── */
+    .compare-table-wrap {
+      overflow-x: auto;
+      margin-top: 16px;
+    }
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .83rem;
+    }
+    .compare-table th {
+      background: var(--primary);
+      color: #fff;
+      padding: 10px 14px;
+      text-align: center;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .compare-table th:first-child { text-align: left; }
+    .compare-table td {
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+      vertical-align: middle;
+    }
+    .compare-table td:first-child {
+      text-align: left;
+      font-weight: 600;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .compare-table tr:nth-child(even) td { background: #F9FAFB; }
+    .compare-table .best { color: var(--success); font-weight: 700; }
+
+    /* ── Toggle tabs ── */
+    .view-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .view-tab {
+      padding: 7px 16px;
+      border-radius: 6px;
+      border: 1.5px solid var(--border);
+      background: #fff;
+      font-size: .85rem;
+      cursor: pointer;
+      transition: all .2s;
+      color: var(--muted);
+    }
+    .view-tab.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    /* ── Disclaimer ── */
+    .disclaimer {
+      max-width: 760px;
+      margin: 0 auto 32px;
+      padding: 0 16px;
+      font-size: .75rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .disclaimer p + p { margin-top: 4px; }
+
+    /* ── Responsive ── */
+    @media (max-width: 540px) {
+      .filter-grid { grid-template-columns: 1fr; }
+      .card-main { grid-template-columns: auto 1fr; }
+      .card-price-col { display: none; }
+      .card-specs { gap: 8px; }
+      .tool-header h1 { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="tool-header">
+  <h1>光回線 比較ツール</h1>
+  <p>エリア・予算・用途から、あなたに合った光回線を見つけよう</p>
+</div>
+
+<div class="filter-wrap">
+  <div class="filter-card">
+    <div class="filter-grid">
+
+      <!-- エリア -->
+      <div class="filter-group">
+        <label><span class="step">1</span>お住まいのエリア</label>
+        <select id="sel-pref">
+          <option value="">都道府県を選択</option>
+          <option>北海道</option><option>青森県</option><option>岩手県</option><option>宮城県</option>
+          <option>秋田県</option><option>山形県</option><option>福島県</option><option>茨城県</option>
+          <option>栃木県</option><option>群馬県</option><option>埼玉県</option><option>千葉県</option>
+          <option>東京都</option><option>神奈川県</option><option>新潟県</option><option>富山県</option>
+          <option>石川県</option><option>福井県</option><option>山梨県</option><option>長野県</option>
+          <option>岐阜県</option><option>静岡県</option><option>愛知県</option><option>三重県</option>
+          <option>滋賀県</option><option>京都府</option><option>大阪府</option><option>兵庫県</option>
+          <option>奈良県</option><option>和歌山県</option><option>鳥取県</option><option>島根県</option>
+          <option>岡山県</option><option>広島県</option><option>山口県</option><option>徳島県</option>
+          <option>香川県</option><option>愛媛県</option><option>高知県</option><option>福岡県</option>
+          <option>佐賀県</option><option>長崎県</option><option>熊本県</option><option>大分県</option>
+          <option>宮崎県</option><option>鹿児島県</option><option>沖縄県</option>
+        </select>
+      </div>
+
+      <!-- 住居タイプ -->
+      <div class="filter-group">
+        <label><span class="step">2</span>住居タイプ</label>
+        <select id="sel-house">
+          <option value="">選択してください</option>
+          <option value="mansion">マンション・アパート</option>
+          <option value="kodate">一戸建て</option>
+        </select>
+      </div>
+
+      <!-- 月額予算 -->
+      <div class="filter-group full">
+        <label><span class="step">3</span>月額予算（上限）</label>
+        <input type="range" id="rng-budget" min="2000" max="8000" step="500" value="6000">
+        <div class="budget-display" id="budget-disp">〜 6,000円 / 月</div>
+      </div>
+
+      <!-- 用途 -->
+      <div class="filter-group full">
+        <label><span class="step">4</span>主な用途（複数選択可）</label>
+        <div class="usage-checks">
+          <input class="usage-check" type="checkbox" id="u-telework" value="telework">
+          <label for="u-telework">💻 テレワーク</label>
+          <input class="usage-check" type="checkbox" id="u-game" value="game">
+          <label for="u-game">🎮 オンラインゲーム</label>
+          <input class="usage-check" type="checkbox" id="u-video" value="video">
+          <label for="u-video">📺 動画・Netflix</label>
+          <input class="usage-check" type="checkbox" id="u-cost" value="cost">
+          <label for="u-cost">💰 とにかく安く</label>
+          <input class="usage-check" type="checkbox" id="u-docomo" value="docomo">
+          <label for="u-docomo">📱 ドコモユーザー</label>
+          <input class="usage-check" type="checkbox" id="u-au" value="au">
+          <label for="u-au">📱 auユーザー</label>
+          <input class="usage-check" type="checkbox" id="u-sb" value="softbank">
+          <label for="u-sb">📱 SoftBankユーザー</label>
+        </div>
+      </div>
+
+    </div>
+    <button class="btn-compare" onclick="doCompare()">比較する →</button>
+  </div>
+</div>
+
+<div class="results-wrap" id="results-section" style="display:none">
+
+  <div class="results-meta">
+    <div class="results-count" id="results-count"></div>
+    <div class="sort-row">
+      <button class="sort-btn active" onclick="setSort('score', this)">おすすめ順</button>
+      <button class="sort-btn" onclick="setSort('price', this)">月額が安い順</button>
+      <button class="sort-btn" onclick="setSort('speed', this)">速度が速い順</button>
+    </div>
+  </div>
+
+  <div class="view-tabs">
+    <button class="view-tab active" onclick="setView('card', this)">カード表示</button>
+    <button class="view-tab" onclick="setView('table', this)">比較表で見る</button>
+  </div>
+
+  <div id="cards-view"></div>
+  <div id="table-view" style="display:none"></div>
+</div>
+
+<div class="disclaimer">
+  <p>※ 表示価格はすべて税込みの参考値です。キャンペーン・適用条件等により実際の金額は異なります。</p>
+  <p>※ 最新の料金・キャンペーン情報は各社公式サイトでご確認ください。</p>
+  <p>※ エリア対応状況は変更になる場合があります。契約前に必ず公式サイトで確認してください。</p>
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+//  データ定義
+// ─────────────────────────────────────────────
+const PROVIDERS = [
+  {
+    id: 'nuro',
+    name: 'NURO光',
+    color: '#E84C3D',
+    tag: '速度No.1',
+    speedLabel: '最大10Gbps',
+    speedGbps: 10,
+    feeKodate: 5200,
+    feeMansion: 2090,
+    feeLabel: { kodate: '5,200円〜', mansion: '2,090円〜' },
+    contract: '2年',
+    construction: '44,000円（実質無料キャンペーン中）',
+    campaign: '最大55,000円キャッシュバック',
+    features: ['独自回線で超高速', 'ゲーム・低遅延に強い', '速度満足度No.1'],
+    usageScore: { telework: 5, game: 5, video: 5, cost: 2, docomo: 2, au: 2, softbank: 2 },
+    // NURO光 対応エリア（参考）
+    areas: ['北海道','宮城県','茨城県','栃木県','群馬県','埼玉県','千葉県','東京都','神奈川県',
+            '山梨県','長野県','静岡県','愛知県','岐阜県','三重県','滋賀県','京都府','大阪府',
+            '兵庫県','奈良県','岡山県','広島県','福岡県','佐賀県','熊本県'],
+    areaNote: '提供エリア限定（事前確認が必要）',
+    url: 'https://www.nuro.jp/',
+  },
+  {
+    id: 'docomo',
+    name: 'ドコモ光',
+    color: '#E60012',
+    tag: 'ドコモ割引あり',
+    speedLabel: '最大1Gbps',
+    speedGbps: 1,
+    feeKodate: 4400,
+    feeMansion: 3960,
+    feeLabel: { kodate: '4,400円〜', mansion: '3,960円〜' },
+    contract: '2年',
+    construction: '19,800円（キャンペーンあり）',
+    campaign: 'ドコモ契約で最大1,100円/月割引',
+    features: ['全国対応', 'ドコモセット割', 'プロバイダ選べる'],
+    usageScore: { telework: 4, game: 3, video: 4, cost: 3, docomo: 5, au: 1, softbank: 1 },
+    areas: 'all',
+    areaNote: '全国対応',
+    url: 'https://www.nttdocomo.co.jp/hikari/',
+  },
+  {
+    id: 'au',
+    name: 'auひかり',
+    color: '#009EDB',
+    tag: 'au割引あり',
+    speedLabel: '最大10Gbps',
+    speedGbps: 10,
+    feeKodate: 5610,
+    feeMansion: 4180,
+    feeLabel: { kodate: '5,610円〜', mansion: '4,180円〜' },
+    contract: '2年',
+    construction: '41,250円（実質無料キャンペーン中）',
+    campaign: 'au契約で最大1,100円/月割引・最大60,000円CB',
+    features: ['全国対応', 'auスマートバリュー', '10Gプランあり'],
+    usageScore: { telework: 4, game: 4, video: 4, cost: 2, docomo: 1, au: 5, softbank: 1 },
+    areas: 'all',
+    areaNote: '全国対応',
+    url: 'https://www.au.com/internet/hikari/',
+  },
+  {
+    id: 'softbank',
+    name: 'SoftBank光',
+    color: '#FF8C00',
+    tag: 'SB割引あり',
+    speedLabel: '最大1Gbps',
+    speedGbps: 1,
+    feeKodate: 5720,
+    feeMansion: 4180,
+    feeLabel: { kodate: '5,720円〜', mansion: '4,180円〜' },
+    contract: '2年',
+    construction: '26,400円（実質無料キャンペーン中）',
+    campaign: 'SB契約で最大1,100円/月割引',
+    features: ['全国対応', 'おうち割光セット', 'Y!mobile割引も対象'],
+    usageScore: { telework: 3, game: 3, video: 4, cost: 2, docomo: 1, au: 1, softbank: 5 },
+    areas: 'all',
+    areaNote: '全国対応',
+    url: 'https://www.softbank.jp/internet/hikari/',
+  },
+  {
+    id: 'rakuten',
+    name: '楽天ひかり',
+    color: '#BF0000',
+    tag: '1年間無料',
+    speedLabel: '最大1Gbps',
+    speedGbps: 1,
+    feeKodate: 4480,
+    feeMansion: 3278,
+    feeLabel: { kodate: '4,480円〜', mansion: '3,278円〜' },
+    contract: '縛りなし',
+    construction: '工事費実費',
+    campaign: '楽天モバイル契約で1年間無料・楽天ポイント還元',
+    features: ['全国対応', '楽天モバイルで1年無料', '縛りなし'],
+    usageScore: { telework: 3, game: 2, video: 4, cost: 4, docomo: 1, au: 1, softbank: 1 },
+    areas: 'all',
+    areaNote: '全国対応',
+    url: 'https://hikari.rakuten.co.jp/',
+  },
+  {
+    id: 'en',
+    name: 'enひかり',
+    color: '#2ECC71',
+    tag: '最安値クラス',
+    speedLabel: '最大1Gbps',
+    speedGbps: 1,
+    feeKodate: 4290,
+    feeMansion: 3520,
+    feeLabel: { kodate: '4,290円〜', mansion: '3,520円〜' },
+    contract: '縛りなし',
+    construction: '実費',
+    campaign: 'キャッシュバックなし（その分月額が安い）',
+    features: ['業界最安値クラス', '縛りなし', 'シンプル料金'],
+    usageScore: { telework: 3, game: 2, video: 3, cost: 5, docomo: 1, au: 1, softbank: 1 },
+    areas: 'all',
+    areaNote: '全国対応',
+    url: 'https://enhikari.jp/',
+  },
+  {
+    id: 'nifty',
+    name: '@nifty光',
+    color: '#1976D2',
+    tag: 'CB充実',
+    speedLabel: '最大10Gbps',
+    speedGbps: 10,
+    feeKodate: 5500,
+    feeMansion: 4400,
+    feeLabel: { kodate: '5,500円〜', mansion: '4,400円〜' },
+    contract: '2年',
+    construction: '19,800円（キャンペーンあり）',
+    campaign: '最大50,000円キャッシュバック',
+    features: ['老舗プロバイダ', 'キャッシュバック充実', 'セキュリティ無料'],
+    usageScore: { telework: 4, game: 3, video: 3, cost: 2, docomo: 1, au: 1, softbank: 1 },
+    areas: 'all',
+    areaNote: '全国対応',
+    url: 'https://hikari.nifty.com/',
+  },
+  {
+    id: 'biglobe',
+    name: 'BIGLOBE光',
+    color: '#7B1FA2',
+    tag: 'コスパ良好',
+    speedLabel: '最大1Gbps',
+    speedGbps: 1,
+    feeKodate: 4378,
+    feeMansion: 3740,
+    feeLabel: { kodate: '4,378円〜', mansion: '3,740円〜' },
+    contract: '2年',
+    construction: '16,500円（キャンペーンあり）',
+    campaign: 'au/UQmobile割引・最大30,000円CB',
+    features: ['全国対応', 'auスマートバリュー対応', 'コスパ重視'],
+    usageScore: { telework: 3, game: 2, video: 3, cost: 4, docomo: 1, au: 3, softbank: 1 },
+    areas: 'all',
+    areaNote: '全国対応',
+    url: 'https://join.biglobe.ne.jp/mobile/hikari/',
+  },
+];
+
+const RANK_EMOJI = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣'];
+
+// ─────────────────────────────────────────────
+//  State
+// ─────────────────────────────────────────────
+let _results  = [];
+let _sortMode = 'score';
+let _viewMode = 'card';
+let _houseType = '';
+
+// ─────────────────────────────────────────────
+//  Budget slider
+// ─────────────────────────────────────────────
+const rng = document.getElementById('rng-budget');
+const disp = document.getElementById('budget-disp');
+function updateBudgetBar(v) {
+  const pct = ((v - rng.min) / (rng.max - rng.min) * 100).toFixed(1);
+  rng.style.background =
+    `linear-gradient(to right, var(--accent) 0%, var(--accent) ${pct}%, var(--border) ${pct}%)`;
+  disp.textContent = v >= 8000 ? '上限なし' : `〜 ${Number(v).toLocaleString()}円 / 月`;
+}
+rng.addEventListener('input', () => updateBudgetBar(rng.value));
+updateBudgetBar(rng.value);
+
+// ─────────────────────────────────────────────
+//  Compare
+// ─────────────────────────────────────────────
+function doCompare() {
+  const pref   = document.getElementById('sel-pref').value;
+  const house  = document.getElementById('sel-house').value;
+  const budget = parseInt(rng.value);
+  const usages = [...document.querySelectorAll('.usage-check:checked')].map(c => c.value);
+  _houseType = house;
+
+  const filtered = PROVIDERS.filter(p => {
+    // エリアフィルター
+    if (pref && p.areas !== 'all' && !p.areas.includes(pref)) return false;
+    // 予算フィルター
+    const fee = house === 'mansion' ? p.feeMansion : p.feeKodate;
+    if (budget < 8000 && fee > budget) return false;
+    return true;
+  });
+
+  // スコア計算
+  _results = filtered.map(p => {
+    let score = 50;
+    // 用途スコア
+    usages.forEach(u => { score += (p.usageScore[u] || 0) * 10; });
+    // 速度ボーナス（ゲーム・テレワーク選択時）
+    if ((usages.includes('game') || usages.includes('telework')) && p.speedGbps >= 10) score += 15;
+    // コスパボーナス
+    const fee = house === 'mansion' ? p.feeMansion : p.feeKodate;
+    score -= Math.max(0, (fee - 4000) / 100);
+    return { ...p, score: Math.round(score), fee };
+  });
+
+  _sortMode = 'score';
+  _viewMode = 'card';
+  render();
+  document.getElementById('results-section').style.display = 'block';
+  document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ─────────────────────────────────────────────
+//  Sort
+// ─────────────────────────────────────────────
+function setSort(mode, btn) {
+  _sortMode = mode;
+  document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function sorted() {
+  const arr = [..._results];
+  if (_sortMode === 'price')  arr.sort((a, b) => a.fee - b.fee);
+  else if (_sortMode === 'speed') arr.sort((a, b) => b.speedGbps - a.speedGbps);
+  else arr.sort((a, b) => b.score - a.score);
+  return arr;
+}
+
+// ─────────────────────────────────────────────
+//  View toggle
+// ─────────────────────────────────────────────
+function setView(mode, btn) {
+  _viewMode = mode;
+  document.querySelectorAll('.view-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('cards-view').style.display = mode === 'card' ? 'block' : 'none';
+  document.getElementById('table-view').style.display = mode === 'table' ? 'block' : 'none';
+}
+
+// ─────────────────────────────────────────────
+//  Render
+// ─────────────────────────────────────────────
+function render() {
+  const list = sorted();
+  const maxScore = Math.max(...list.map(p => p.score), 1);
+
+  // count
+  document.getElementById('results-count').innerHTML =
+    `<strong>${list.length}</strong> 件の光回線が見つかりました`;
+
+  // Cards
+  if (list.length === 0) {
+    document.getElementById('cards-view').innerHTML =
+      `<div class="empty-state"><div class="icon">🔍</div>
+       <p>条件に合う回線が見つかりませんでした。<br>エリアや予算を変更して再検索してください。</p></div>`;
+  } else {
+    document.getElementById('cards-view').innerHTML = list.map((p, i) => {
+      const feeLabel = _houseType === 'mansion' ? p.feeLabel.mansion : p.feeLabel.kodate;
+      const scorePct = Math.round((p.score / maxScore) * 100);
+      const isAreaLimited = p.areas !== 'all';
+      return `
+      <div class="provider-card" style="--provider-color:${p.color}">
+        <div class="card-main">
+          <div class="card-rank">${RANK_EMOJI[i] || (i+1)}</div>
+          <div class="card-info">
+            <div class="card-name-row">
+              <span class="card-name">${p.name}</span>
+              <span class="card-tag">${p.tag}</span>
+              ${isAreaLimited ? `<span class="area-notice">⚠️ エリア限定</span>` : ''}
+            </div>
+            <div class="card-specs">
+              <span>速度 <strong>${p.speedLabel}</strong></span>
+              <span>契約 <strong>${p.contract}</strong></span>
+            </div>
+          </div>
+          <div class="card-price-col">
+            <div class="card-price">${feeLabel}<small>/月</small></div>
+          </div>
+        </div>
+        <div class="score-row">
+          <span class="score-label">おすすめ度</span>
+          <div class="score-bar-bg">
+            <div class="score-bar-fill" style="width:${scorePct}%"></div>
+          </div>
+          <span class="score-val">${scorePct}%</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-features">
+            ${p.features.map(f => `<span class="feature-chip">${f}</span>`).join('')}
+          </div>
+          <a class="btn-detail" href="${p.url}" target="_blank" rel="noopener">詳細・申込 →</a>
+        </div>
+        <div style="padding:0 20px 12px;font-size:.78rem;color:var(--muted)">
+          🎁 ${p.campaign}
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // Table
+  const rows = [
+    ['月額料金', p => {
+      const f = _houseType === 'mansion' ? p.feeLabel.mansion : p.feeLabel.kodate;
+      return f;
+    }],
+    ['最大速度', p => p.speedLabel],
+    ['契約期間', p => p.contract],
+    ['工事費',   p => p.construction],
+    ['特典・CB', p => p.campaign],
+    ['エリア',   p => p.areaNote],
+  ];
+  const minFee = Math.min(...list.map(p => _houseType === 'mansion' ? p.feeMansion : p.feeKodate));
+  const maxSpeed = Math.max(...list.map(p => p.speedGbps));
+
+  document.getElementById('table-view').innerHTML = `
+  <div class="compare-table-wrap">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>項目</th>
+          ${list.map(p => `<th style="border-bottom:3px solid ${p.color}">${p.name}</th>`).join('')}
+        </tr>
+      </thead>
+      <tbody>
+        ${rows.map(([label, fn]) => `
+        <tr>
+          <td>${label}</td>
+          ${list.map(p => {
+            const val = fn(p);
+            const isBestFee   = label === '月額料金' && (_houseType === 'mansion' ? p.feeMansion : p.feeKodate) === minFee;
+            const isBestSpeed = label === '最大速度' && p.speedGbps === maxSpeed;
+            const cls = (isBestFee || isBestSpeed) ? ' class="best"' : '';
+            return `<td${cls}>${val}${(isBestFee||isBestSpeed)?'　✓':''}</td>`;
+          }).join('')}
+        </tr>`).join('')}
+        <tr>
+          <td>詳細</td>
+          ${list.map(p => `<td><a href="${p.url}" target="_blank" rel="noopener"
+            style="color:${p.color};font-weight:700;text-decoration:none">詳細 →</a></td>`).join('')}
+        </tr>
+      </tbody>
+    </table>
+  </div>`;
+}
+</script>
+
+<footer style="background:var(--primary);color:#fff;text-align:center;padding:28px 20px;font-size:.82rem;line-height:1.8;margin-top:16px">
+  <p style="font-weight:700;font-size:.95rem;margin-bottom:8px">ネットの窓口</p>
+  <p>光回線・インターネット回線の比較情報サイト</p>
+  <p style="opacity:.6;margin-top:10px;font-size:.75rem">
+    © 2026 ネットの窓口 ／ 掲載情報は参考値です。最新情報は各社公式サイトをご確認ください。
+  </p>
+</footer>
+
+</body>
+</html>
